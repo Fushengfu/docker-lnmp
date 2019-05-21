@@ -30,6 +30,6 @@ docker-lnmp
 ├─docker-compose.yml    docker-compose 文件
 
 ```
-##环境部署
+### 环境部署
 
 使用 `docker-compose up -d` 构建并后台运行 
