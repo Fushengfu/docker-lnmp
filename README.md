@@ -32,4 +32,4 @@ docker-lnmp
 ```
 ### 环境部署
 
-使用 `docker-compose up -d` 构建并后台运行 
+创建/data目录并把解压后的docker-lnmp里的所有内容复制到/data目录里，使用 `docker-compose up -d` 构建并后台运行 
