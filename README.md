@@ -13,7 +13,7 @@ docker-lnmp
 │
 ├─nginx                 nginx 目录
 |
-├─nginx                 php 目录
+├─php                   php 目录
 │  |
 |  |——php.ini           php.ini php配置文件
 |
