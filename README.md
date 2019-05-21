@@ -3,7 +3,7 @@ docker部署lnmp环境
 
 # 简介
 
-基于Docker官方镜像部署 LNMP (Linux, Nginx, MySQL, PHP7).
+基于Docker官方镜像部署 LNMP (Nginx1.15, MySQL5.7, PHP7.2).
 
 ### 目录说明
 
