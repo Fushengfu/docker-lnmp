@@ -1,0 +1,83 @@
+version: "3"
+services:
+    # web server
+    nginx:
+        image: nginx:1.15
+        container_name: nginx
+        ports:
+            - "80:80"
+            - "443:443"
+        networks:
+            - frontend
+        volumes:
+            # 项目目录
+            - /data/wwwroot:/data/wwwroot
+            # nginx configs
+            - /data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+            - /data/nginx/conf/vhost/:/etc/nginx/conf.d/:ro
+            - /data/nginx/certs/:/etc/nginx/certs/:ro
+            - /data/nginx/logs:/var/log/nginx:rw
+        restart: always
+        depends_on:
+            - php-fpm
+
+    # php-fpm
+    php-fpm:
+        build: ./php-fpm
+        image: php:7.2-fpm
+        container_name: php-fpm
+        ports:
+            - "9000:9000"
+        networks:
+            - frontend
+            - backend
+        volumes:
+            # 项目目录
+            - /data/wwwroot:/data/wwwroot
+            # 配置文件
+            - /data/php/php.ini:/usr/local/etc/php/php.ini:ro
+            - /data/php/fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf:rw
+        restart: always
+    # mysql
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - backend
+        volumes:
+            - /data/mysql/data:/var/lib/mysql:rw
+            - /data/mysql/conf/my.cnf:/etc/mysql/my.cnf:ro
+        environment:
+            # 初始化密码
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=test
+        restart: always
+
+    # redis
+    redis:
+        image: redis:5.0.3
+        container_name: redis
+        ports:
+            - "6379:6379"
+        networks:
+            - backend
+        volumes:
+            - /data/redis/conf/redis.conf:/etc/redis.conf:ro
+            # RDB AOF dir
+            - /data/redis/data:/var/lib/redis
+        entrypoint: ["redis-server", "/etc/redis.conf"]
+        restart: always
+    
+    # composer
+    composer:
+        image: composer:1.8
+        container_name: composer
+        volumes:
+            - /data/wwwroot:/data/wwwroot
+        # command: install
+        restart: 'no'
+networks:
+    frontend:
+    backend:
