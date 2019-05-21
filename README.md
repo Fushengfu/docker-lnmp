@@ -16,7 +16,7 @@ docker-lnmp
 |
 ├─nginx                 php 目录
 │  |
-|  |_                   php.ini php配置文件
+|  |——php.ini           php.ini php配置文件
 |
 ├─php-fpm               php-fpm 目录
 │  └─Dockerfile         php-fpm dockerfile文件
