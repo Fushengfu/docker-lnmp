@@ -20,6 +20,13 @@ docker-lnmp
 ├─php-fpm               php-fpm 目录
 │  └─Dockerfile         php-fpm dockerfile文件
 │
+│
+│─redis               	redis 目录
+│  │─conf          		redis配置文件目录
+│  │  └─redis.conf      redis配置文件
+│  │─data				持久化文件目录
+│   
+│
 ├─docker-compose.yml    docker-compose 文件
 
 ```
